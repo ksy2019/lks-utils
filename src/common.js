@@ -1,12 +1,11 @@
-module.exports = {
-    /**
-     * @description: 同步睡眠函数
-     * @param {*} time 睡眠时间，单位ms
-     * @return {*} Promise
-     */
-    sleep(time) {
+/**
+ * @description: 同步睡眠函数
+ * @param {*} time 睡眠时间，单位ms
+ * @return {*} Promise
+ */
+export const sleep = (time) => {
         return new Promise(res => setTimeout(res, time))
-    },
+    }
     /**
      * @description: 防抖： 在规定的时间内重复触发会重新计时，计时结束执行函数
      * @param {*} func =>callback function
@@ -14,7 +13,7 @@ module.exports = {
      * @param {*} isImmediately 是否立即执行
      * @return {*} function
      */
-    debounce(func, delay, isImmediately) {
+export const debounce = (func, delay, isImmediately) => {
         let timer
         if (isImmediately) {
             return function() {
@@ -31,15 +30,14 @@ module.exports = {
                 }, delay);
             }
         }
-    },
-
+    }
     /**
      * @description: 节流函数：每个一段时间可以执行一次
      * @param {*} func => cellback function
      * @param {*} delay
      * @return {*} function
      */
-    torottle(func, delay) {
+export const torottle = (func, delay) => {
         let isTorottle;
         return function() {
             if (!isTorottle) {
@@ -50,21 +48,21 @@ module.exports = {
                 }, delay)
             }
         }
-    },
+    }
     /**
      * @description: 深拷贝函数
      * @param {*} obj   目标对象
      * @return {*} Object  深拷贝输出对象
      */
-    deepCopy(obj) {
+export const deepCopy = (obj) => {
         return JSON.parse(JSON.stringify(obj))
-    },
+    }
     /**
      * @description: 对象转formData
      * @param {*} obj 输入对象
      * @return {*} FormData Object
      */
-    formD(obj) {
+export const formD = (obj) => {
         const formData = new URLSearchParams();
         Object.keys(obj).forEach((key) => {
             if (obj[key] instanceof Array) {
@@ -76,24 +74,24 @@ module.exports = {
             formData.append(key, obj[key]);
         });
         return formData;
-    },
+    }
     /**
      * @description: 生成32为GUID
      * @return {*}  String
      */
-    guid() {
+export const guid = () => {
         function S4() {
             return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
         }
         return (S4() + S4() + "" + S4() + "" + S4() + "" + S4() + "" + S4() + S4() + S4());
-    },
+    }
     /**
      * @description: 通过post下载文件
      * @param {*} url:  String
      * @param {*} data: Object
      * @return {*} viod
      */
-    postFile(url, data) {
+export const postFile = (url, data) => {
         let myform = document.createElement('form');
         myform.setAttribute('action', url);
         myform.setAttribute('method', 'post');
@@ -106,9 +104,9 @@ module.exports = {
         document.getElementsByTagName("body")[0].appendChild(myform)
         myform.submit()
         myform.remove();
-    },
+    }
     //点击复制文字
-    copyT(text) {
+export const copyT = (text) => {
         if (text == '') {
             return false
         }
@@ -120,35 +118,36 @@ module.exports = {
         document.execCommand("Copy"); // 执行浏览器复制命令
         myinput.remove();
         Message.success("复制成功")
-    },
+    }
     /**
      * @description: 读取css变量值，作用域全局
      * @param {*} key
      * @return {*} String
      */
-    readCss(key) {
+export const readCss = (key) => {
         return getComputedStyle(document.documentElement).getPropertyValue(key).trim()
-    },
+    }
     /**
      * @description: 删除:root标签下的css变量值
      * @param {*} key
      * @return {*} viod
      */
-    delCss(key) {
+export const delCss = (key) => {
         document.documentElement.style.removeProperty(key);
-    },
+    }
     /**
      * @description: 设置:root标签下的css变量值
      * @param {*} key
      * @param {*} val
      * @return {*} boolean
      */
-    setCss(key, val) {
-        try {
-            document.documentElement.style.setProperty(key, val);
-            return true
-        } catch (e) {
-            return false
-        }
+export const setCss = (key, val) => {
+    try {
+        document.documentElement.style.setProperty(key, val);
+        return true
+    } catch (e) {
+        return false
     }
 }
+
+export default { sleep, debounce, torottle, deepCopy, formD, guid, postFile, copyT, readCss, delCss, setCss }
